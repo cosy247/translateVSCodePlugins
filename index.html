@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+<script src="./src/md5.js"></script>
+<script src="./src/jquery.js"></script>
+
+<script>
+	const appid = '20230822001789260';
+	const salt = Date.now();
+	const secret = 'OH_OM0CviQsp6B0lojc2';
+
+	function getTranslateData (text) {
+		console.log(1);
+		$.ajax({
+			url: 'http://api.fanyi.baidu.com/api/trans/vip/translate',
+			type: 'get',
+			dataType: 'jsonp',
+			async:false,
+			data: {
+				q: text,
+				appid,
+				salt,
+				from: 'auto',
+				to: 'en',
+				sign: md5(appid + text + salt + secret)
+			},
+			success: function (data) {
+				console.log(2);
+				console.log(data);
+			}
+		});
+		console.log(3);
+	}
+
+	getTranslateData('我仿佛')
+</script>
+
+</html>
